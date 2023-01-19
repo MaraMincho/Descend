@@ -354,3 +354,4 @@ hs_err_pid*
 android/.idea/
 /ios/Podfile
 /ios/Podfile.lock
+/macos/Podfile
