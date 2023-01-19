@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:descend/screens/CreateBoardScreen.dart';
+import 'package:descend/screens/BoardDetail.dart';
 
 void main() async{
   return runApp(MyApp());
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/':(context) => CreateBoardScreen(),
+        // '/':(context) => CreateBoardScreen(),
+        '/':(context) => BoardDetail(),
         // '/':(context) => LoginScreen(),
         // SpaceSelect.routename: (context) => SpaceSelect(),
         // SpaceListScreen.routename: (context) => SpaceListScreen(),
