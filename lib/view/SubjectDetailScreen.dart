@@ -1,5 +1,8 @@
 import 'dart:ffi';
 
+import 'package:descend/view/BoardDetail.dart';
+import 'package:descend/view/CreateBoardScreen.dart';
+import 'package:descend/view/widget/GoBack.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,20 +22,7 @@ class _SubjectDetailScreenState extends State<SubjectDetailScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            GestureDetector(
-              onTap: () {Get.back();},
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 25, 10, 20),
-                child: Container(
-                    alignment: Alignment.topLeft,
-                    child: Icon(Icons.arrow_back,
-                      color: Colors.black,
-                      size: 40,
-                    )
-                ),
-              ),
-            ),
-
+            GoBack(),
             Text("강의명 : 현장프로젝트 교과", style: TextStyle(fontSize: 27, fontWeight: FontWeight.w700, letterSpacing: -1),),
             SizedBox(height: 10,),
             Text("교수명 : 정의훈 교수님", style: TextStyle(fontSize: 27, fontWeight: FontWeight.w700, letterSpacing: -1),),
@@ -43,10 +33,12 @@ class _SubjectDetailScreenState extends State<SubjectDetailScreen> {
                 alignment: Alignment.topRight,
                 child: TextButton(
                   onPressed: (){},
-                  child: Text("글쓰기", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.black),))
+                  child: InkWell(
+                    onTap: () {Get.to(CreateBoardScreen());},
+                      child: Text("글쓰기", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.black),
+                      )))
               ),
             ),
-
             Expanded(
               child: ListView(
                 children: [

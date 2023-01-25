@@ -15,7 +15,6 @@ class _CreateBoardScreen extends State<CreateBoardScreen> {
   @override
   Widget build(BuildContext context) {
     List<String> files = ["file1.png", "file2.pdf", "files3.mp3", "files4.sh"];
-
     // Variables
     int btnBg = 0xffD69595;
     int btnTxtColor = 0xff000000;
@@ -49,12 +48,15 @@ class _CreateBoardScreen extends State<CreateBoardScreen> {
                           textColor: Colors.black,
                           fontSize: 16.0);
                     },
-                    child: Text(
-                      "완료",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                        color: Color(btnTxtColor),
+                    child: InkWell(
+                      onTap: (){},
+                      child: Text(
+                        "완료",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                          color: Color(btnTxtColor),
+                        ),
                       ),
                     )),
               ],

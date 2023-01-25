@@ -1,8 +1,7 @@
-import 'package:descend/view/MainScreen.dart';
+import 'package:descend/view/Login/login.dart';
+import 'package:descend/view/SplashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:descend/screens/CreateBoardScreen.dart';
-import 'package:descend/screens/BoardDetail.dart';
 
 void main() async{
   return runApp(MyApp());
@@ -20,18 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.indigo,
         primaryColor: Color(0xffffffff),
       ),
-      initialRoute: '/',
-      routes: {
-        // '/':(context) => CreateBoardScreen(),
-        '/':(context) => BoardDetail(),
-        // '/':(context) => LoginScreen(),
-        // SpaceSelect.routename: (context) => SpaceSelect(),
-        // SpaceListScreen.routename: (context) => SpaceListScreen(),
-        // SpecificScreen.routename : (context) => SpecificScreen(),
-        // ReservationScreen.routename : (context) => ReservationScreen(),
-        // ReservationList.routename : (context) => ReservationList(),
-        // ResultScreen.routename : (context) => ResultScreen(),
-      },
+      home: SplashScreen()
     );
   }
 }
