@@ -11,12 +11,19 @@ class DummyPage extends StatefulWidget {
 class _test2State extends State<DummyPage> {
 
   @override
+  void initState() {
+    nextview();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    setState(() {
-      Future.delayed(const Duration(milliseconds: 1000), () {
-        Get.to(MainScreen());
-      });
-    });
     return Container();
+  }
+
+  nextview() async {
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      Get.to(MainScreen());
+    });
   }
 }

@@ -20,6 +20,7 @@ class LoginViewModel extends GetxController {
     if (response.statusCode == 201) {
       userViewModel.user = User.fromJson(jsonString);
     }
+
     var temp = response.statusCode.toString();
     return temp;
   }

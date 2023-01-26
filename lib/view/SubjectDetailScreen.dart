@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SubjectDetailScreen extends StatefulWidget {
-  const SubjectDetailScreen({Key? key}) : super(key: key);
+  String? subName = "현장프로젝트 교과";
+  String? subProfessor = "정의훈";
+  SubjectDetailScreen({Key? key, this.subProfessor, this.subName}) : super(key: key);
 
   @override
   State<SubjectDetailScreen> createState() => _SubjectDetailScreenState();
@@ -13,95 +15,97 @@ class SubjectDetailScreen extends StatefulWidget {
 class _SubjectDetailScreenState extends State<SubjectDetailScreen> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 5, 20, 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            GoBack(),
-            Text("강의명 : 현장프로젝트 교과", style: TextStyle(fontSize: 27, fontWeight: FontWeight.w700, letterSpacing: -1),),
-            SizedBox(height: 10,),
-            Text("교수명 : 정의훈 교수님", style: TextStyle(fontSize: 27, fontWeight: FontWeight.w700, letterSpacing: -1),),
-            SizedBox(height: 10,),
-            Padding(
-              padding: const EdgeInsets.only(right: 25),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: TextButton(
-                  onPressed: (){},
-                  child: InkWell(
-                    onTap: () {Get.to(CreateBoardScreen());},
-                      child: Text("글쓰기", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.black),
-                      )))
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 5, 20, 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              GoBack(),
+              Text("강의명 : ${widget.subName}", style: TextStyle(fontSize: 27, fontWeight: FontWeight.w700, letterSpacing: -1),),
+              SizedBox(height: 10,),
+              Text("교수명 : ${widget.subProfessor}", style: TextStyle(fontSize: 27, fontWeight: FontWeight.w700, letterSpacing: -1),),
+              SizedBox(height: 10,),
+              Padding(
+                padding: const EdgeInsets.only(right: 25),
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: TextButton(
+                    onPressed: (){},
+                    child: InkWell(
+                      onTap: () {Get.to(CreateBoardScreen());},
+                        child: Text("글쓰기", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.black),
+                        )))
+                ),
               ),
-            ),
-            Expanded(
-              child: ListView(
-                children: [
-                  Container(
-                    padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                    child: Column(
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text('4.83',
-                              style: TextStyle(
-                              fontSize: 35,
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: -1.5
+              Expanded(
+                child: ListView(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                      child: Column(
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text('4.83',
+                                style: TextStyle(
+                                fontSize: 35,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: -1.5
+                                ),
                               ),
+                              SizedBox(width: 10,),
+                              StarPoint(starSize: 35),
+                            ],
+                          ),
+                          SizedBox(height: 30,),
+                          LectureEvaluation(),
+                          LectureEvaluation(),
+                          LectureEvaluation(),
+                          LectureEvaluation(),
+                          SizedBox(height: 20,),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.7,
+                            child: ElevatedButton(
+                                onPressed: (){},
+                                style: ElevatedButton.styleFrom(
+                                  shadowColor: Colors.black.withOpacity(0),
+                                  foregroundColor: Colors.black.withOpacity(0.7),
+                                  backgroundColor: Colors.black.withOpacity(0.2),
+                                ),
+                                child: Text('강의평 더보기')
                             ),
-                            SizedBox(width: 10,),
-                            StarPoint(starSize: 35),
-                          ],
-                        ),
-                        SizedBox(height: 30,),
-                        LectureEvaluation(),
-                        LectureEvaluation(),
-                        LectureEvaluation(),
-                        LectureEvaluation(),
-                        SizedBox(height: 20,),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.7,
-                          child: ElevatedButton(
-                              onPressed: (){},
-                              style: ElevatedButton.styleFrom(
-                                shadowColor: Colors.black.withOpacity(0),
-                                foregroundColor: Colors.black.withOpacity(0.7),
-                                backgroundColor: Colors.black.withOpacity(0.2),
-                              ),
-                              child: Text('강의평 더보기')
                           ),
-                        ),
-                        SizedBox(height: 30,),
-                        PreviewBoard(),
-                        PreviewBoard(),
-                        PreviewBoard(),
-                        PreviewBoard(),
+                          SizedBox(height: 30,),
+                          PreviewBoard(),
+                          PreviewBoard(),
+                          PreviewBoard(),
+                          PreviewBoard(),
 
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.7,
-                          child: ElevatedButton(
-                              onPressed: (){},
-                              style: ElevatedButton.styleFrom(
-                                shadowColor: Colors.black.withOpacity(0),
-                                foregroundColor: Colors.black.withOpacity(0.7),
-                                backgroundColor: Colors.black.withOpacity(0.2),
-                              ),
-                              child: Text('자료 더보기')
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.7,
+                            child: ElevatedButton(
+                                onPressed: (){},
+                                style: ElevatedButton.styleFrom(
+                                  shadowColor: Colors.black.withOpacity(0),
+                                  foregroundColor: Colors.black.withOpacity(0.7),
+                                  backgroundColor: Colors.black.withOpacity(0.2),
+                                ),
+                                child: Text('자료 더보기')
+                            ),
                           ),
-                        ),
 
 
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            )
-          ],
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

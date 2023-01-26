@@ -5,11 +5,11 @@ import 'package:get/get.dart';
 //const $baseUrl = "http://172.16.1.160:3000";
 const $baseUrl = baseIP;
 
-class UserRepository extends GetConnect {
+class SubRepository extends GetConnect {
   @override
   void onInit() {
     allowAutoSignedCert = true;
-    httpClient.baseUrl = baseIP;
+    httpClient.baseUrl = $baseUrl;
     httpClient.addRequestModifier<void>((request) {
       request.headers['Accept'] = 'application/json';
       return request;
@@ -17,29 +17,15 @@ class UserRepository extends GetConnect {
     super.onInit();
   }
 
-  Future<int?> register(String name, String email, String password) async {
-    print(1);
+
+  Future<Response> searchSub(String name) async {
     Response response = await post(
-        "/api/user/register",
+        "/api/sub",
         {
           "name": name,
-          "email": email,
-          "password": password
         }
     );
     print(response.statusCode);
-    return response.statusCode;
-  }
-
-  Future<Response> login(String email, String password) async {
-    Response response = await post(
-        "/api/user/login",
-        {
-          "email": email,
-          "password": password
-        }
-    );
-
     return response;
   }
 }

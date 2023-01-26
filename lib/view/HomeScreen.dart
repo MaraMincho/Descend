@@ -1,6 +1,9 @@
+import 'package:descend/view/SubjectDetailScreen.dart';
 import 'package:descend/view/profile.dart';
+import 'package:descend/view/widget/MiniSubinfo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -45,10 +48,10 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
               child: Column(
                 children: [
-                  CurrentStudy(),
-                  CurrentStudy(),
-                  CurrentStudy(),
-                  CurrentStudy(),
+                  MiniSubInfo(),
+                  MiniSubInfo(),
+                  MiniSubInfo(),
+                  MiniSubInfo(),
                 ],
               ),
             ).animate()
@@ -57,28 +60,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       )
-    );
-  }
-}
-
-class CurrentStudy extends StatelessWidget {
-  const CurrentStudy({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
-      alignment: AlignmentDirectional.topStart,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text('현장 프로젝트 교과', style: TextStyle(fontSize: 28, letterSpacing: -1),),
-          Text('월 [1~5] 09:30~14:20 화 [1~5] 09:30~14:20 수 [1~5] 09:30~14:20 목 [1~5] 09:30~14:20 금 [1~5] 09:30~14:20 (E동513호)',
-            style: TextStyle(fontSize: 13, color: Colors.black.withOpacity(0.6), letterSpacing: -1.3),
-          )
-        ],
-      ),
     );
   }
 }

@@ -1,5 +1,8 @@
 import 'package:descend/view/HomeScreen.dart';
+import 'package:descend/view/widget/MiniSubinfo.dart';
+import 'package:descend/viewmodel/SubViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -9,6 +12,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  var searchViewModel = Get.put(SubViewModel());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +36,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(20, 8, 20, 3),
                         child: TextField(
+                          controller: searchViewModel.searchStr,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
 
@@ -39,7 +44,13 @@ class _SearchScreenState extends State<SearchScreen> {
                             hintText: "과목명 교수명으로 검색",
                             focusColor: Colors.black,
 
-                            suffixIcon: Icon(Icons.search),
+                            suffixIcon: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  searchViewModel.searchSub();
+                                });
+                              },
+                                child: Icon(Icons.search)),
                             filled: false
                           ),
                         ),
@@ -48,25 +59,15 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
 
                 Expanded(
-                  child: ListView(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(5, 20, 5, 10),
-                        child: Text("현재 듣는 강의", style: TextStyle(fontSize: 19, letterSpacing: -1),),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Column(
-                          children: [
-                            CurrentStudy(),
-                            CurrentStudy(),
-                            CurrentStudy(),
-                            CurrentStudy(),
-                            CurrentStudy(),
-                          ],
-                        ),
-                      ),
-                    ],
+                  child: GetBuilder<SubViewModel>(
+                    builder: (_) {
+                      return ListView.builder(
+                        itemCount: _.subList.length,
+                        itemBuilder: (context, int index){
+                          return MiniSubInfo(name: _.subList[index].subname, time: _.subList[index].time, professor: _.subList[index].professor,);
+                        }
+                      );
+                    }
                   ),
                 ),
 
