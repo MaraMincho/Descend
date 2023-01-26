@@ -1,6 +1,4 @@
-
 import 'package:descend/view/Login/login.dart';
-import 'package:descend/view/MainScreen.dart';
 import 'package:descend/viewmodel/SignUpViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -65,6 +63,7 @@ class _SignupPageState extends State<SignupPage> {
                       ],
                     ),
                   ),
+
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 40),
                     child: Container(
@@ -81,21 +80,41 @@ class _SignupPageState extends State<SignupPage> {
                       child: MaterialButton(
                         minWidth: double.infinity,
                         height:60,
-                        onPressed: (){
+                        onPressed: () async {
                           signUpViewModel.check();
                           if(signUpViewModel.userName.text == "") {
                             Get.snackbar('알림', '아이디를 입력하세요', duration: Duration(seconds: 1), snackPosition: SnackPosition.BOTTOM);
                           }
                           else if (signUpViewModel.userID.text == "")
                             Get.snackbar('알림', '이메일을 입력하세요', duration: Duration(seconds: 1), snackPosition: SnackPosition.BOTTOM);
-
+                          else if (signUpViewModel.userPW.text == "")
+                            Get.snackbar('알림', '비밀번호를 입력하세요', duration: Duration(seconds: 1), snackPosition: SnackPosition.BOTTOM);
                           else if(signUpViewModel.isSamePW == false) {
                             signUpViewModel.check();
                             Get.snackbar('알림', '두 비밀번호가 다릅니다.', duration: Duration(seconds: 1), snackPosition: SnackPosition.BOTTOM);
                           }
+                          //문제 없을 때
                           else {
-                            signUpViewModel.check();
-                            return completeDialog(context);
+                            showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (context) {
+                                return FutureBuilder(
+                                    future: signUpViewModel.register(),
+                                    builder: (context, snapshot) {
+                                      if (!snapshot.hasData) {
+                                        return Center(child: CircularProgressIndicator());
+                                      }
+                                      else if (snapshot.hasError) {
+                                        return Text('${snapshot.error}');
+                                      }
+                                      else {
+                                        return SignUpMessage(statuscode: snapshot.data as int,);
+                                      }
+                                    }
+                                );
+                              }
+                            );
                           }
                         },
                         color: Colors.redAccent,
@@ -132,45 +151,51 @@ class _SignupPageState extends State<SignupPage> {
       ),
     );
   }
+
 }
 
-void completeDialog(BuildContext context) {
-  showDialog(
-      context: context,
-      //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0)),
-          //Dialog Main Title
-          title: Column(
-            children: <Widget>[
-              new Text("알림"),
-            ],
+
+class SignUpMessage extends StatelessWidget {
+  SignUpMessage({Key? key, required this.statuscode}) : super(key: key);
+  final int statuscode;
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0)),
+      //Dialog Main Title
+      title: Column(
+        children: <Widget>[
+          new Text("알림"),
+        ],
+      ),
+      //
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            statuscode == 201 ? "회원가입이 정상적을 완료되었습니다." : "중복된 이메일입니다.",
           ),
-          //
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                "회원가입이 정상적을 완료되었습니다.",
-              ),
-            ],
-          ),
-          actions: <Widget>[
-            Container(
-              alignment: Alignment.center,
-              child: ElevatedButton(
-                child: new Text("확인"),
-                onPressed: () {
-                  Get.offAll(LoginPage());
-                },
-              ),
+        ],
+      ),
+      actions: <Widget>[
+        Container(
+          alignment: Alignment.center,
+          child: ElevatedButton(
+            child: new Text(
+                statuscode == 201? "확인": "뒤로가기"
             ),
-          ],
-        );
-      });
+            onPressed: () {
+              statuscode == 201?
+              Get.offAll(LoginPage()) :
+              Get.back();
+            },
+          ),
+        ),
+      ],
+    );
+  }
 }
+

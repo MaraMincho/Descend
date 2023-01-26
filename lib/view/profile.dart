@@ -1,11 +1,13 @@
+import 'package:descend/viewmodel/UserViewModel.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 class ProfileViewer extends StatelessWidget {
   const ProfileViewer({Key? key}) : super(key: key);
 
   @override
 
   Widget build(BuildContext context) {
+    var userViewModel = Get.put(UserViewModel());
     final size = MediaQuery
         .of(context)
         .size;
@@ -26,7 +28,7 @@ class ProfileViewer extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        '안녕하세요',
+                        '${userViewModel.user.id}',
                         style: TextStyle(
                             fontSize: LargeSizeFont,
                             fontWeight: FontWeight.w700,

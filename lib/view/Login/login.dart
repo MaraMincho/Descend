@@ -1,7 +1,11 @@
+import 'package:descend/view/HomeScreen.dart';
 import 'package:descend/view/Login/SignUp.dart';
+import 'package:descend/view/Login/test.dart';
 import 'package:descend/view/MainScreen.dart';
+import 'package:descend/view/test2.dart';
 import 'package:descend/viewmodel/LoginViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
@@ -15,6 +19,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   var userViewModel = Get.put(LoginViewModel());
+  var loginViewModel = Get.put(LoginViewModel());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,11 +78,28 @@ class _LoginPageState extends State<LoginPage> {
                       minWidth: double.infinity,
                       height:60,
                       onPressed: (){
-                        print(userViewModel.userID.text);
-                        print(userViewModel.userPW.text);
-                        Get.offAll(MainScreen());
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (context) {
+                              return FutureBuilder(
+                                  future: loginViewModel.login(),
+                                  builder: (context, snapshot) {
+                                    if (!snapshot.hasData) {
+                                      return Center(child: CircularProgressIndicator());
+                                    }
+                                    else if (snapshot.hasError) {
+                                      return Text('${snapshot.error}');
+                                    }
+                                    else {
+                                      print(snapshot.data);
+                                      return LoginMessage(statuscode: int.parse(snapshot.data.toString()));
+                                    }
+                                  }
+                              );
+                            }
+                        );
                         },
-
                       color: Colors.indigoAccent[400],
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(40)
@@ -109,7 +131,70 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ],
         ),
-      ),
+      ).animate()
+          .fadeIn(delay: 300.ms, duration: 500.ms),
     );
   }
 }
+
+
+class LoginMessage extends StatelessWidget {
+  LoginMessage({Key? key, required this.statuscode}) : super(key: key);
+  final int statuscode;
+
+
+  @override
+  Widget build(BuildContext context) {
+    if (statuscode == 201) {
+      return FutureBuilder(
+        future: Future.delayed(const Duration(seconds: 2)).then((onValue) => true),
+          builder: (context, snapshot) {
+          if(!snapshot.hasData) {
+            return Padding(
+              padding: const EdgeInsets.all(50.0),
+              child: Lottie.asset('images/imgs/success.json'),
+            );
+          }
+          else {
+            return DummyPage();
+          }
+        });
+    }
+    else
+      return AlertDialog(
+        // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0)),
+        //Dialog Main Title
+        title: Column(
+          children: <Widget>[
+            new Text("알림"),
+          ],
+        ),
+        //
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              '아이디 혹은 비밀번호가 잘못되었습니다.'
+            ),
+          ],
+        ),
+        actions: <Widget>[
+          Container(
+            alignment: Alignment.center,
+            child: ElevatedButton(
+              child: new Text(
+                '확인'
+              ),
+              onPressed: () {
+                Get.back();
+              },
+            ),
+          ),
+        ],
+      );
+  }
+}
+

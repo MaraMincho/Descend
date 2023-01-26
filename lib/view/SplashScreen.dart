@@ -9,12 +9,12 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
-      duration: 1500,
+      duration: 2000,
       splashIconSize: 700,
-      splash: 'images/imgs/img.png',
+      splash: 'images/imgs/splash.png',
       nextScreen: LoginPage(),
-      splashTransition: SplashTransition.rotationTransition,
-      pageTransitionType: PageTransitionType.fade,
+      splashTransition: SplashTransition.fadeTransition,
+
     );
   }
 }

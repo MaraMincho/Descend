@@ -19,19 +19,19 @@ class FeedRepository extends GetConnect {
     super.onInit();
   }
 
-
-  Future<List?> feedIndex() async {
-    String? token = await userController.getToken();
-    if (token == null) return null;
-    Response response = await get(
-      '/api/feed',
-      headers: {'token' : token}
-    );
-    if (response.statusCode == 401) {
-      return null;
-    }
-    return response.body;
-  }
+  //
+  // Future<List?> feedIndex() async {
+  //   String? token = await userController.getToken();
+  //   if (token == null) return null;
+  //   Response response = await get(
+  //     '/api/feed',
+  //     headers: {'token' : token}
+  //   );
+  //   if (response.statusCode == 401) {
+  //     return null;
+  //   }
+  //   return response.body;
+  // }
 
 
 }

@@ -38,7 +38,6 @@ class _BoardDetail extends State<BoardDetail> {
       },
     ];
 
-    var size = MediaQuery.of(context).size;
     return Scaffold(
         body: SafeArea(
       child: ListView(

@@ -1,6 +1,3 @@
-import 'dart:ffi';
-
-import 'package:descend/view/BoardDetail.dart';
 import 'package:descend/view/CreateBoardScreen.dart';
 import 'package:descend/view/widget/GoBack.dart';
 import 'package:flutter/material.dart';

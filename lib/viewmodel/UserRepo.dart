@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 
-const $baseUrl = "http://localhost:3000";
+//const $baseUrl = "http://10.254.3.98:3000";
+//const $baseUrl = "http://172.16.1.160:3000";
+const $baseUrl = "http://127.0.0.1:3000";
 
 class UserRepository extends GetConnect {
   @override
@@ -14,7 +16,7 @@ class UserRepository extends GetConnect {
     super.onInit();
   }
 
-  Future<String?> register(String name, String email, String password) async {
+  Future<int?> register(String name, String email, String password) async {
     Response response = await post(
         "/api/user/register",
         {
@@ -23,18 +25,19 @@ class UserRepository extends GetConnect {
           "password": password
         }
     );
-    return (response.statusCode == 200) ? response.bodyString : null;
+    print(response.statusCode);
+    return response.statusCode;
   }
 
-
-  Future<String?> login(String email, String password) async {
+  Future<Response> login(String email, String password) async {
     Response response = await post(
-        "/api/user/register",
+        "/api/user/login",
         {
           "email": email,
           "password": password
         }
     );
-    return (response.statusCode == 200) ? response.bodyString : null;
+
+    return response;
   }
 }
