@@ -4,6 +4,7 @@ import 'package:descend/view/widget/MiniSubinfo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -48,10 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
               child: Column(
                 children: [
-                  MiniSubInfo(),
-                  MiniSubInfo(),
-                  MiniSubInfo(),
-                  MiniSubInfo(),
+                  Lottie.asset('images/imgs/trophy.json',
+                    frameRate: FrameRate(25)
+                  )
                 ],
               ),
             ).animate()

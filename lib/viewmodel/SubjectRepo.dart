@@ -1,4 +1,5 @@
 import 'package:descend/viewmodel/IP.dart';
+import 'package:descend/viewmodel/UserViewModel.dart';
 import 'package:get/get.dart';
 
 //const $baseUrl = "http://10.254.3.98:3000";
@@ -6,10 +7,12 @@ import 'package:get/get.dart';
 const $baseUrl = baseIP;
 
 class SubRepository extends GetConnect {
+
+  var userViewModel = Get.put(UserViewModel());
   @override
   void onInit() {
     allowAutoSignedCert = true;
-    httpClient.baseUrl = $baseUrl;
+    httpClient.baseUrl = baseIP;
     httpClient.addRequestModifier<void>((request) {
       request.headers['Accept'] = 'application/json';
       return request;
@@ -19,13 +22,14 @@ class SubRepository extends GetConnect {
 
 
   Future<Response> searchSub(String name) async {
+    print(userViewModel.currentUser.token);
     Response response = await post(
         "/api/sub",
+        headers: {"token" : "${userViewModel.currentUser.token}"},
         {
           "name": name,
         }
     );
-    print(response.statusCode);
     return response;
   }
 }

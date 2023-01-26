@@ -1,5 +1,6 @@
 import 'package:descend/view/HomeScreen.dart';
 import 'package:descend/view/widget/MiniSubinfo.dart';
+import 'package:descend/viewmodel/FeedViewModel.dart';
 import 'package:descend/viewmodel/SubViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,6 +14,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   var searchViewModel = Get.put(SubViewModel());
+  var feedViewModel = Get.put(FeedViewModel());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,9 +64,13 @@ class _SearchScreenState extends State<SearchScreen> {
                   child: GetBuilder<SubViewModel>(
                     builder: (_) {
                       return ListView.builder(
-                        itemCount: _.subList.length,
+                        itemCount: _.searchSubjectList.length,
                         itemBuilder: (context, int index){
-                          return MiniSubInfo(name: _.subList[index].subname, time: _.subList[index].time, professor: _.subList[index].professor,);
+                          print(_.searchSubjectList[0].id);
+                          return GestureDetector(
+                            onTap: () {
+                            },
+                              child: MiniSubInfo(subject: _.searchSubjectList[index]));
                         }
                       );
                     }

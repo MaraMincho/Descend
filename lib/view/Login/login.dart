@@ -38,13 +38,13 @@ class _LoginPageState extends State<LoginPage> {
                     Container(width: double.infinity, height: 250,
                         alignment: Alignment.center,
                         child: Lottie.asset('images/imgs/loginimg.json', fit: BoxFit.fitHeight)),
-                    Text ("Login", style: TextStyle(
+                    Text ("로그인 하세요!", style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
                     ),),
                     SizedBox(height: 20,),
-                    Text("Welcome back ! Login with your credentials",style: TextStyle(
-                      fontSize: 15,
+                    Text("디센드에 온 것을 환영합니다!",style: TextStyle(
+                      fontSize: 20,
                       color: Colors.grey[700],
                     ),),
                     SizedBox(height: 30,)
@@ -92,7 +92,6 @@ class _LoginPageState extends State<LoginPage> {
                                       return Text('${snapshot.error}');
                                     }
                                     else {
-                                      print(snapshot.data);
                                       return LoginMessage(statuscode: int.parse(snapshot.data.toString()));
                                     }
                                   }
@@ -114,12 +113,12 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Dont have an account?"),
+                    Text("계정이 없으신가요?"),
                     InkWell(
                       onTap: (){
                         Get.to(SignupPage());
                         },
-                      child: Text("Sign Up",style: TextStyle(
+                      child: Text("  Sign Up",style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 18
                       ),),
@@ -141,7 +140,6 @@ class _LoginPageState extends State<LoginPage> {
 class LoginMessage extends StatelessWidget {
   LoginMessage({Key? key, required this.statuscode}) : super(key: key);
   final int statuscode;
-
 
   @override
   Widget build(BuildContext context) {

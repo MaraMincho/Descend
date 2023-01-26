@@ -37,15 +37,7 @@ class _MainScreenState extends State<MainScreen> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.camera_alt_rounded),
-              label: '알약 인식',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.local_pharmacy_rounded),
-              label: '약국 어디',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.schedule_send),
-              label: '123123',
+              label: '검색화면',
             ),
           ],
           currentIndex: _currentScreenIndex,

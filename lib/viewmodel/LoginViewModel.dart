@@ -12,13 +12,13 @@ class LoginViewModel extends GetxController {
   TextEditingController userID = new TextEditingController();
   TextEditingController userPW = new TextEditingController();
 
-
   Future login() async {
     var response = await userRepo.login(userID.text, userPW.text);
     var jsonString = jsonDecode(jsonEncode(response.body));
     print(jsonString);
     if (response.statusCode == 201) {
-      userViewModel.user = User.fromJson(jsonString);
+      userViewModel.currentUser = User.fromJson(jsonString);
+      print(response.body);
     }
 
     var temp = response.statusCode.toString();

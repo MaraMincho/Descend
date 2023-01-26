@@ -1,113 +1,101 @@
+import 'package:descend/model/FeedModel.dart';
+import 'package:descend/view/BoardDetail.dart';
 import 'package:descend/view/CreateBoardScreen.dart';
+import 'package:descend/view/HomeScreen.dart';
 import 'package:descend/view/widget/GoBack.dart';
+import 'package:descend/viewmodel/FeedViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SubjectDetailScreen extends StatefulWidget {
-  String? subName = "현장프로젝트 교과";
-  String? subProfessor = "정의훈";
-  SubjectDetailScreen({Key? key, this.subProfessor, this.subName}) : super(key: key);
+
+  SubjectDetailScreen({Key? key}) : super(key: key);
 
   @override
   State<SubjectDetailScreen> createState() => _SubjectDetailScreenState();
 }
 
 class _SubjectDetailScreenState extends State<SubjectDetailScreen> {
+
+  var feedViewModel = Get.put(FeedViewModel());
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 5, 20, 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              GoBack(),
-              Text("강의명 : ${widget.subName}", style: TextStyle(fontSize: 27, fontWeight: FontWeight.w700, letterSpacing: -1),),
-              SizedBox(height: 10,),
-              Text("교수명 : ${widget.subProfessor}", style: TextStyle(fontSize: 27, fontWeight: FontWeight.w700, letterSpacing: -1),),
-              SizedBox(height: 10,),
-              Padding(
-                padding: const EdgeInsets.only(right: 25),
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: TextButton(
-                    onPressed: (){},
-                    child: InkWell(
-                      onTap: () {Get.to(CreateBoardScreen());},
-                        child: Text("글쓰기", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.black),
-                        )))
-                ),
-              ),
-              Expanded(
-                child: ListView(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Column(
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text('4.83',
-                                style: TextStyle(
-                                fontSize: 35,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: -1.5
-                                ),
-                              ),
-                              SizedBox(width: 10,),
-                              StarPoint(starSize: 35),
-                            ],
-                          ),
-                          SizedBox(height: 30,),
-                          LectureEvaluation(),
-                          LectureEvaluation(),
-                          LectureEvaluation(),
-                          LectureEvaluation(),
-                          SizedBox(height: 20,),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.7,
-                            child: ElevatedButton(
-                                onPressed: (){},
-                                style: ElevatedButton.styleFrom(
-                                  shadowColor: Colors.black.withOpacity(0),
-                                  foregroundColor: Colors.black.withOpacity(0.7),
-                                  backgroundColor: Colors.black.withOpacity(0.2),
-                                ),
-                                child: Text('강의평 더보기')
-                            ),
-                          ),
-                          SizedBox(height: 30,),
-                          PreviewBoard(),
-                          PreviewBoard(),
-                          PreviewBoard(),
-                          PreviewBoard(),
-
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.7,
-                            child: ElevatedButton(
-                                onPressed: (){},
-                                style: ElevatedButton.styleFrom(
-                                  shadowColor: Colors.black.withOpacity(0),
-                                  foregroundColor: Colors.black.withOpacity(0.7),
-                                  backgroundColor: Colors.black.withOpacity(0.2),
-                                ),
-                                child: Text('자료 더보기')
-                            ),
-                          ),
-
-
-                        ],
-                      ),
+    return FutureBuilder(
+      future: feedViewModel.getBoard(), //수정요망
+      builder: (context, snapshot) {
+        if (!snapshot.hasData)
+          return CircularProgressIndicator();
+        else
+        return Scaffold(
+          body: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 5, 20, 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GestureDetector(
+                    onTap: (){Get.offAll(HomeScreen());},
+                      child: GoBack()),
+                  Text("강의명 : ${feedViewModel.currentSubject?.subname}", style: TextStyle(fontSize: 27, fontWeight: FontWeight.w700, letterSpacing: -1),),
+                  SizedBox(height: 10,),
+                  Text("교수명 : ${feedViewModel.currentSubject?.professor}", style: TextStyle(fontSize: 27, fontWeight: FontWeight.w700, letterSpacing: -1),),
+                  SizedBox(height: 10,),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 25),
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: TextButton(
+                        onPressed: (){},
+                        child: InkWell(
+                          onTap: () {
+                            Get.off(CreateBoardScreen());
+                            },
+                            child: Text("글쓰기", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.black),
+                            )))
                     ),
-                  ],
-                ),
-              )
-            ],
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text('4.83',
+                        style: TextStyle(
+                            fontSize: 35,
+                            fontWeight: FontWeight.w700,
+                            letterSpacing: -1.5
+                        ),
+                      ),
+                      SizedBox(width: 10,),
+                      StarPoint(starSize: 35),
+                    ],
+                  ),
+                  Expanded(
+                      child: GetBuilder<FeedViewModel>(
+                        builder: (_) {
+                          return ListView.builder(
+                            itemCount: _.currentFeedList.length,
+                              itemBuilder: (context, ind) {
+                                return InkWell(
+                                  onTap: (){
+                                    _.currentFeed = _.currentFeedList[ind];
+                                    Get.to(BoardDetail());
+                                    },
+                                    child: PreviewBoard(
+                                      currentFeed:_.currentFeedList[ind],
+                                      title: _.currentFeedList[ind].title,
+                                      content: _.currentFeedList[ind].content,
+                                    )
+                                );
+                              }
+                          );
+                        }
+                      )
+                  ),
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      }
     );
   }
 }
@@ -182,7 +170,13 @@ class StarPoint extends StatelessWidget {
 
 
 class PreviewBoard extends StatelessWidget {
-  const PreviewBoard({Key? key}) : super(key: key);
+  String? title;
+  String? content;
+  Feed? currentFeed;
+  PreviewBoard({Key? key,
+    required this.title, required this.content,
+    required this.currentFeed
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -191,7 +185,7 @@ class PreviewBoard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('현장프로젝트 정리 노트입니다.', style: TextStyle(fontSize: 17),),
+          Text('$title', style: TextStyle(fontSize: 17),),
           Row(
             children: [
               Expanded(
@@ -200,7 +194,7 @@ class PreviewBoard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 10,),
-                    Text('운명이 우리에게 배푸는 약간의 불행을 지..')
+                    Text('${content}')
 
                   ],
                 ),

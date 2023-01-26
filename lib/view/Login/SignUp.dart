@@ -38,12 +38,12 @@ class _SignupPageState extends State<SignupPage> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text ("Sign up", style: TextStyle(
+                      Text ("회원가입", style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                       ),),
                       SizedBox(height: 20,),
-                      Text("Create an Account,Its free",style: TextStyle(
+                      Text("무료로 즐기세요!",style: TextStyle(
                         fontSize: 15,
                         color: Colors.grey[700],
                       ),),
@@ -56,10 +56,10 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                     child: Column(
                       children: [
-                        MakeInput(label: "Name", textEdit: signUpViewModel.userName),
-                        MakeInput(label: "Email", textEdit: signUpViewModel.userID),
-                        MakeInput(label: "Password",obsureText: true, textEdit: signUpViewModel.userPW),
-                        MakeInput(label: "Confirm Pasword",obsureText: true, textEdit: signUpViewModel.checkPW)
+                        MakeInput(label: "이름", textEdit: signUpViewModel.userName),
+                        MakeInput(label: "이메일", textEdit: signUpViewModel.userID),
+                        MakeInput(label: "비밀번호",obsureText: true, textEdit: signUpViewModel.userPW),
+                        MakeInput(label: "비밀번호 확인",obsureText: true, textEdit: signUpViewModel.checkPW)
                       ],
                     ),
                   ),
@@ -121,7 +121,7 @@ class _SignupPageState extends State<SignupPage> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(40)
                         ),
-                        child: Text("Sign Up",style: TextStyle(
+                        child: Text("회원가입 완료",style: TextStyle(
                           fontWeight: FontWeight.w600,fontSize: 16,
 
                         ),),
@@ -132,7 +132,7 @@ class _SignupPageState extends State<SignupPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Already have an account? "),
+                      Text("이미 계정이 있으신가요? "),
                       InkWell(
 
                         onTap: (){Get.offAll(LoginPage());},

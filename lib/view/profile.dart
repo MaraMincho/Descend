@@ -28,7 +28,7 @@ class ProfileViewer extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        '${userViewModel.user.id}',
+                        '반갑습니다',
                         style: TextStyle(
                             fontSize: LargeSizeFont,
                             fontWeight: FontWeight.w700,
@@ -36,7 +36,7 @@ class ProfileViewer extends StatelessWidget {
                             height: 1),
                       ), //profile 소개 멘트
                       Text(
-                        '정다함님',
+                        '${userViewModel.currentUser.name}님',
                         style: TextStyle(
                           fontSize: LargeSizeFont,
                             fontWeight: FontWeight.w700,

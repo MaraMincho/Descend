@@ -1,8 +1,16 @@
+import 'package:descend/view/SubjectDetailScreen.dart';
+import 'package:descend/view/widget/GoBack.dart';
+import 'package:descend/view/widget/UpdateBoard.dart';
+import 'package:descend/viewmodel/FeedViewModel.dart';
+import 'package:descend/viewmodel/UserViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 
 class BoardDetail extends StatefulWidget {
-  const BoardDetail({Key? key}) : super(key: key);
+  BoardDetail({
+    Key? key,
+  }) : super(key: key);
   static const routename = '/BoardDetail';
 
   @override
@@ -10,229 +18,221 @@ class BoardDetail extends StatefulWidget {
 }
 
 class _BoardDetail extends State<BoardDetail> {
+  var feedViewModel = Get.put(FeedViewModel());
+  var userViewModel = Get.put(UserViewModel());
+
   @override
   Widget build(BuildContext context) {
     /// TODO Backend 완성 후 수정
     // Variables
     List<String> files = ["file1.png", "file2.pdf", "files3.mp3", "files4.sh"];
-    int btnBg = 0xffffffff;
     int btnTxtColor = 0xffff0000;
     double valPadding = 32.0;
-    String date = "2023.01.19";
-    String content = "정리노트\n\nhttps://google.com\n\n좋은 하루 되시길";
-    List<Map<dynamic, dynamic>> testReply = [
-      {
-        "name": "익명",
-        "reply": "테스트",
-        "date": "2023.01.19",
-      },
-      {
-        "name": "익명2",
-        "reply": "테스트2",
-        "date": "2023.01.20",
-      },
-      {
-        "name": "익명3",
-        "reply": "테스트3",
-        "date": "2023.01.21",
-      },
-    ];
 
     return Scaffold(
-        body: SafeArea(
-      child: ListView(
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: valPadding),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                SizedBox(
-                    width: 50,
-                    height: 50,
-                    child: Image.asset("images/icons/img.png")),
-                GestureDetector(
-                    onTap: () {
-                      Fluttertoast.showToast(
-                          msg: "Pressed : Submit",
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.BOTTOM,
-                          timeInSecForIosWeb: 1,
-                          backgroundColor: Colors.grey,
-                          textColor: Colors.black,
-                          fontSize: 16.0);
-                    },
-                    child: Text(
-                      "삭제하기",
-                      style: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontSize: 22,
-                        color: Color(btnTxtColor),
-                      ),
-                    )),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: valPadding),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const <Widget>[
-                Text(
-                  "현장프로젝트 정리 노트",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 30
-                  ),
-                ),
-                Text(
-                  "익명",
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: valPadding),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  date,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w300,
-                    fontSize: 24,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  content,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w300,
-                    fontSize: 20,
-                    color: Colors.black87,
-                  ),
-                ),
-                const SizedBox(height: 40),
-                const Text(
-                  "첨부파일",
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: files.length,
-                    itemBuilder: (context, idx) {
-                      return GestureDetector(
-                        onTap: () {
-                          Fluttertoast.showToast(
-                              msg: "Download ${files[idx]}",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.grey,
-                              textColor: Colors.black,
-                              fontSize: 16.0);
-                        },
-                        child: Text(
-                          files[idx],
-                          style: const TextStyle(
-                            fontSize: 15,
-                          ),
-                        ),
-                      );
-                    }),
-                const SizedBox(height: 40),
-                const Divider(
-                    height: 1,
-                    color: Color.fromRGBO(219, 219, 219, 1),
-                    thickness: 1),
-                const SizedBox(height: 40),
-                ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: testReply.length,
-                    itemBuilder: (context, idx) {
-                      return GestureDetector(
-                        onTap: () {
-                          Fluttertoast.showToast(
-                              msg: "Download ${files[idx]}",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.grey,
-                              textColor: Colors.black,
-                              fontSize: 16.0);
-                        },
+        body: FutureBuilder(
+            future: feedViewModel.getComment(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData)
+                return CircularProgressIndicator();
+              else
+                return SafeArea(
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: valPadding),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  testReply[idx]['name'],
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w900,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                GoBack(),
+                                TextButton(
+                                  onPressed: ()async{
+                                    await feedViewModel.deleteBoard();
+                                    Get.off(SubjectDetailScreen());
+                                  },
+                                  child : Text(userViewModel.currentUser.id ==
+                                          feedViewModel.currentFeed?.userId
+                                      ? "삭제하기"
+                                      : "",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 22,
+                                    color: Color(btnTxtColor),
+                                  ),
                                   ),
                                 ),
-                                SizedBox(height: 5),
-                                Text(
-                                  testReply[idx]['reply'],
-                                  style: const TextStyle(
-                                    fontSize: 15,
+                                TextButton(
+                                  onPressed: (){
+                                    print(feedViewModel.currentFeed?.id);
+                                    Get.to(UpdateBoard());
+                                  },
+                                  child : Text(userViewModel.currentUser.id ==
+                                      feedViewModel.currentFeed?.userId
+                                      ? "수정하기"
+                                      : "",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 22,
+                                      color: Color(btnTxtColor),
+                                    ),
                                   ),
                                 ),
-                                SizedBox(height: 15),
                               ],
-                            ),
-                            Text(
-                              testReply[idx]['date'],
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: Colors.grey,
-                              ),
                             ),
                           ],
                         ),
-                      );
-                    }),
-              ],
-            ),
-          ),
-        ],
-      ),
-    ));
-  }
-}
+                      ),
 
-class tb_reply {
-  String? name;
-  String? content;
-  String? date;
 
-  tb_reply({
-    this.name,
-    this.content,
-    this.date,
-  });
-
-  tb_reply.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    content = json['content'];
-    date = json['date'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['content'] = this.content;
-    data['date'] = this.date;
-    return data;
+                      Expanded(
+                        flex: 10,
+                        child: ListView(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: valPadding),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    "${feedViewModel.currentFeed?.title}",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500, fontSize: 30),
+                                  ),
+                                  Text(
+                                    "익명",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: valPadding),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "${feedViewModel.currentFeed?.createdAt?.substring(0,10)}",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w300,
+                                      fontSize: 24,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
+                                  Text(
+                                    "${feedViewModel.currentFeed?.content}",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w300,
+                                      fontSize: 20,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 40),
+                                  const Divider(
+                                      height: 2,
+                                      color: Color.fromRGBO(219, 219, 219, 1),
+                                      thickness: 1),
+                                  const SizedBox(height: 40),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(25.0),
+                              child: ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemCount: feedViewModel.currentCommentList.length,
+                                  itemBuilder: (context, idx) {
+                                    return Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          flex: 10,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                '익명',
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w900,
+                                                ),
+                                              ),
+                                              SizedBox(height: 5),
+                                              Text(
+                                                "${feedViewModel.currentCommentList[idx].content}",
+                                                style: const TextStyle(
+                                                  fontSize: 15,
+                                                ),
+                                              ),
+                                              SizedBox(height: 15),
+                                            ],
+                                          ),
+                                        ),
+                                        Expanded(child: Text(""), flex: 1,),
+                                        Expanded(
+                                          flex: 3,
+                                          child: FittedBox(
+                                            fit: BoxFit.scaleDown,
+                                            child: Text(
+                                              "${feedViewModel.currentCommentList[idx].createdAt?.substring(0,10)}",
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.grey,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Container(
+                            height: MediaQuery.of(context).size.width * 0.15,
+                            width: MediaQuery.of(context).size.width * 0.85,
+                            decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(0.2),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 8, 20, 3),
+                              child: TextField(
+                                controller: feedViewModel.comment,
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: "댓글 작성",
+                                    focusColor: Colors.black,
+                                    suffixIcon: GestureDetector(
+                                        onTap: () async {
+                                          print(feedViewModel.currentFeed?.title);
+                                          await feedViewModel.createComment();
+                                          setState(() {});
+                                        },
+                                        child: Icon(Icons.search)),
+                                    filled: false),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+            }));
   }
 }

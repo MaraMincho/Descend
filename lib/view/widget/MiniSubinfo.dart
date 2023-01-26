@@ -1,19 +1,24 @@
+import 'package:descend/model/Subject.dart';
 import 'package:descend/view/SubjectDetailScreen.dart';
+import 'package:descend/viewmodel/FeedViewModel.dart';
+import 'package:descend/viewmodel/SubViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 
 class MiniSubInfo extends StatelessWidget {
-  String? name = "현장 프로젝트 교과";
-  String? time = "월 [1~5] 09:30~14:20 화 [1~5] 09:30~14:20 수 [1~5] 09:30~14:20 목 [1~5] 09:30~14:20 금 [1~5] 09:30~14:20 (E동513호)";
-  String? professor = "정의훈";
-  MiniSubInfo({Key? key, this.name, this.time, this.professor}) : super(key: key);
+  var subViewModel = Get.put(SubViewModel());
+  final Subject subject;
+  MiniSubInfo({Key? key,
+    required this.subject}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var feedViewModel = Get.put(FeedViewModel());
     return InkWell(
       onTap: (){
-        Get.to(SubjectDetailScreen(subName: name, subProfessor: professor,));
+        feedViewModel.currentSubject = subject;
+        Get.to(SubjectDetailScreen());
       },
       child: Container(
         padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
@@ -29,12 +34,12 @@ class MiniSubInfo extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  FittedBox(fit: BoxFit.scaleDown, child: Text('$name', style: TextStyle(fontSize: 28, letterSpacing: -1),)),
+                  FittedBox(fit: BoxFit.scaleDown, child: Text('${subject.subname}', style: TextStyle(fontSize: 28, letterSpacing: -1),)),
                   Padding(
                     padding: const EdgeInsets.only(left: 8),
-                    child: time == null? Text("") : Text("time",
-                      style: TextStyle(fontSize: 13, color: Colors.black.withOpacity(0.6), letterSpacing: -1.3),
-                    ),
+                    child: Text(""),
+                    // Text("") : Text("$time",
+                    //   style: TextStyle(fontSize: 13, color: Colors.black.withOpacity(0.6), letterSpacing: -1.3),),
                   )
                 ],
               ),
@@ -44,7 +49,7 @@ class MiniSubInfo extends StatelessWidget {
                 child: SizedBox()),
             Expanded(
                 flex: 5,
-                child: FittedBox(fit: BoxFit.scaleDown,child: Text("$professor 교수"))),
+                child: FittedBox(fit: BoxFit.scaleDown,child: Text("${subject.professor} 교수"))),
           ],
         ),
       ),

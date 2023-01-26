@@ -5,11 +5,14 @@ import 'package:get/get.dart';
 import 'UserRepo.dart';
 
 class SignupViewModel extends GetxController {
+
+
   TextEditingController userID = new TextEditingController();
   TextEditingController userName = new TextEditingController();
   TextEditingController userPW = new TextEditingController();
   TextEditingController checkPW = new TextEditingController();
   final userRepo = Get.put(UserRepository());
+
 
   var userViewModel = Get.put(UserViewModel());
   bool isSamePW = false;
