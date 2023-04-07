@@ -18,4 +18,4 @@
                         
                         
                         
-<img src="https://raw.githubusercontent.com/jonataslaw/getx-community/master/get.png" width="20%" height="20%" />
+<img src="https://raw.githubusercontent.com/jonataslaw/getx-community/master/get.png" width="50%" height="50%" />
