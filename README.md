@@ -2,6 +2,9 @@
 ## 강의평가 가능한 간단한 CRUD 프로젝트 (에브리타임 클론앱)
 <br/>
 <br/>
+
+## 개발 기간
+### 2023.01.22 ~ 2023.01.27
 <br/> 
 <div align = "center"> 
 <img src = "https://img.shields.io/badge/flutter-02569B?style=flat&logo=flutter" width="10%" height="10%"/>
@@ -9,3 +12,20 @@
 <br/>                   
 <img src="https://raw.githubusercontent.com/jonataslaw/getx-community/master/get.png" width="50%" height="50%" />
 </div>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+## 기능 소개
+
+### login
+
+### Feed생성
+
+### Feed삭제
+
+### Feed업데이트
+
+### Feed댓글달기
