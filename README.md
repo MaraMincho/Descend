@@ -28,6 +28,8 @@
 
 ## 기능 소개
 
+
+
 ### login
 
 ### Feed생성
@@ -35,5 +37,5 @@
 ### Feed삭제
 
 ### Feed업데이트
-
+<img src = "https://user-images.githubusercontent.com/103064352/230626831-cf9247a2-948a-466a-bacb-83e8973164c1.gif" width="30%" height="30%"/>
 ### Feed댓글달기
