@@ -1,11 +1,15 @@
 # Descend
-## 강의평가 가능한 간단한 CRUD 프로젝트 (에브리타임 클론앱)
+<br/>
+## 어플리케이션 소개
+### 강의평가 가능한 간단한 CRUD 프로젝트 (에브리타임 클론앱)
 <br/>
 <br/>
-
 ## 개발 기간
 ### 2023.01.22 ~ 2023.01.27
 <br/> 
+<br/>
+
+## 적용
 <div align = "center"> 
 <img src = "https://img.shields.io/badge/flutter-02569B?style=flat&logo=flutter" width="10%" height="10%"/>
 <img src = "https://img.shields.io/badge/Dart-0175C2?style=flat&logo=dart" width="10%" height="10%" />
