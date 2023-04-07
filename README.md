@@ -4,8 +4,8 @@
 <br/>
 <br/> 
 <div align = "center"> 
-<img src = "https://img.shields.io/badge/flutter-02569B?style=flat&logo=flutter" width="100%" height="100%"/>
-<img src = "https://img.shields.io/badge/Dart-0175C2?style=flat&logo=dart" width="100%" height="100%" />
+<img src = "https://img.shields.io/badge/flutter-02569B?style=flat&logo=flutter" width="10%" height="10%"/>
+<img src = "https://img.shields.io/badge/Dart-0175C2?style=flat&logo=dart" width="10%" height="10%" />
 <br/>                   
 <img src="https://raw.githubusercontent.com/jonataslaw/getx-community/master/get.png" width="50%" height="50%" />
 </div>
