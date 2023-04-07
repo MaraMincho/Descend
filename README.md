@@ -4,9 +4,9 @@
 ## 어플리케이션 소개
 ### 강의평가 가능한 간단한 CRUD 프로젝트 (에브리타임 클론앱)
 
-<div align = "center" >
-  <img src = "https://user-images.githubusercontent.com/103064352/230627040-ffff53dd-dfd0-49cb-9258-7b1aca8dfbd6.gif" width="50%" height="50%"/>
-<div/>
+
+
+<img align = "center" src = "https://user-images.githubusercontent.com/103064352/230627040-ffff53dd-dfd0-49cb-9258-7b1aca8dfbd6.gif" width="50%" height="50%"/>
 
 
 <br/>
