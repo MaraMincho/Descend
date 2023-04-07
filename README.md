@@ -6,4 +6,5 @@
       
 ![flutter logo](https://img.shields.io/badge/flutter-02569B?style=flat&logo=flutter)
 ![dart logo](https://img.shields.io/badge/Dart-0175C2?style=flat&logo=dart)
-![getx logo](https://raw.githubusercontent.com/jonataslaw/getx-community/master/get.png)
+![getx logo]()
+<img src="https://raw.githubusercontent.com/jonataslaw/getx-community/master/get.png  width="50%" height="50%"/>
